@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 
+# Configurações
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project_manager.db'
@@ -8,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project_manager.db'
 db = SQLAlchemy(app)
 
 
+# Tabelas
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True, nullable=False)
@@ -38,6 +40,7 @@ with app.app_context():
     db.create_all()
 
 
+# Rotas
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -72,11 +75,12 @@ def login():
     email = request.form['email']
     password = request.form['password']
 
-    # Verifica se existe um email e senha cadastrados
     user = User.query.filter_by(email=email, password=password).first()
 
+    # Verifica se existe um email e senha cadastrados
     if user and password:
         session['user_id'] = user.id
+        flash(f'Seja Bem-Vindo {user.username}!', 'success')
         return redirect(url_for('dashboard'))
     else:
         flash('Algo deu errado. Verifique se o email ou senha estão corretos', 'warning')
@@ -99,6 +103,7 @@ def dashboard():
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
+    flash('Você se desconectou com sucesso!', 'success')
     return redirect(url_for('index'))
 
 

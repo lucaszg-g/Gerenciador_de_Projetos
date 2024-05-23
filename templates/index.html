@@ -1,45 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <!-- Login e registro -->
     {% if not 'user_id' in session %}
         <div class="container">
             <div class="row justify-content-center">
                 <!-- Login Form -->
-                <div class="col-md-5">
-                    <div id="login-popup">
+                <div class="col-md-4">
+                    <div id="login-popup" class="shadow p-3 mb-5 bg-body-tertiary rounded">
                         <form method="POST" action="{{ url_for('login') }}" class="form-container">
-                            <h2>Login</h2>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
+                            <h2 class="font-monospace">Login</h2>
+                            <div class="form-group mt-1">
+                                <label for="email" class="form-label">Email:</label>
                                 <input type="email" name="email" id="email" class="form-control" required>
                             </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
+                            <div class="form-group mt-1">
+                                <label for="password" class="form-label">Senha:</label>
                                 <input type="password" name="password" id="password" class="form-control" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Logar</button>
+                            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                         </form>
                     </div>
                 </div>
 
                 <!-- Register Form -->
-                <div class="col-md-5">
-                    <div id="register-popup">
+                <div class="col-md-4">
+                    <div id="register-popup" class="shadow p-3 mb-5 bg-body-tertiary rounded">
                         <form method="POST" action="/register" class="form-container">
-                            <h2>Registro</h2>
-                            <div class="form-group">
-                                <label for="username">Nome de usuário:</label>
+                            <h2 class="font-monospace">Registro</h2>
+                            <div class="form-group mt-1">
+                                <label for="username" class="form-label">Nome de usuário:</label>
                                 <input type="text" name="username" id="username" class="form-control" required>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
+                            <div class="form-group mt-1">
+                                <label for="email" class="form-label">Email:</label>
                                 <input type="email" name="email" id="email" class="form-control" required>
                             </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
+                            <div class="form-group mt-1">
+                                <label for="password" class="form-label">Senha:</label>
                                 <input type="password" name="password" id="password" class="form-control" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Registrar</button>
+                            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                         </form>
                     </div>
                 </div>
