@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Projeto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header class="bg-dark text-white p-3 text-center">
+        <h1>Gerenciador de Projeto</h1>
+        <nav>
+            <a href="{{ url_for('index') }}" class="text-white mx-2">Home</a>
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('dashboard') }}" class="text-white mx-2">Dashboard</a>
+                <a href="{{ url_for('logout') }}" class="text-white mx-2">Sair</a>
+            {% else %}
+                <a href="#" onclick="showPopup('login-popup')" class="text-white mx-2">Login</a>
+                <a href="#" onclick="showPopup('register-popup')" class="text-white mx-2">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="container my-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
